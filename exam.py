@@ -24,6 +24,11 @@ create_product = '''
 
 cur.execute(create_product)
 
+def init():
+    create_product()
+
+#if __name__ == '__main__':
+#    init()
 
 
 
@@ -57,12 +62,32 @@ def delete_product(id):
 
 #3 masala
 class Alphabet:
-    list1 = ['A','B','C','D','E','F','G','H','J','K','I','L','M','N','O','R','P','S','T','U','V','W','X','Y','Z']
-    def __init__(self, list1):
-        self.list1 = list1
-    alfabet = iter(list1)
-    for i in alfabet:
-        print(i)
+     def __init__(self, stringg):
+        self.string = stringg
+        self.index =0
+
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+         if self.stringg.index< len(self.stringg):
+             list1 =self.list2
+             self.index += 1
+             return list1
+         else:
+             raise StopIteration
+
+
+ad = Alphabet('ABCDEFGHIJKLMNOREPUJKLMNOW')
+for i in ad:
+    print(i)
+
+
+
+
+
+
 
 
 
@@ -71,12 +96,12 @@ class Alphabet:
 
 def print_numbers():
     for i in range(1, 6):
-        print(i)
+#        print(i)
         time.sleep(1)
 
 def print_leters():
     for i in 'ABCDE':
-        print(i)
+#        print(i)
         time.sleep(1)
 
 t1=threading.Thread(target=print_numbers)
@@ -95,7 +120,8 @@ class product:
         self.image = image
 
     def save_products(self):
-        insert_product(name=self.name, price=self.price, color=self.color, image=self.image)
+        with ContextManagers as cur:
+        insert_product (name=self.name, price=self.price, color=self.color, image=self.image)
         insert_product_params = (self.name, self.price, self.color, self.image)
         cur.execute(create_product)
         db_product.commit()
@@ -118,7 +144,3 @@ class ContextManagers:
             self.file.close
 
 
-s = "asdfgh"
-S = iter(s)
-for i in S:
-    print(i)
